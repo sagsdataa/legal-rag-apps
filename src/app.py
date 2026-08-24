@@ -14,16 +14,24 @@ from langchain_core.output_parsers import StrOutputParser
 
 
 # Embedding model
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
-)
+@st.cache_resource
+def load_embeddings():
+    return HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
+
+embeddings = load_embeddings()
 
 # Load vector DB
-vectorDB = FAISS.load_local(
-    "faiss_index",
-    embeddings,
-    allow_dangerous_deserialization=True
-)
+@st.cache_resource
+def load_vector_db():
+    return FAISS.load_local(
+        "faiss_index",
+        embeddings,
+        allow_dangerous_deserialization=True
+    )
+
+vectorDB = load_vector_db()
 
 # Retriever
 retriever = vectorDB.as_retriever(
@@ -31,11 +39,20 @@ retriever = vectorDB.as_retriever(
 )
 
 # LLM
-pipe = pipeline(
-    "text-generation",
-    model="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
-    max_new_tokens=128
-)
+@st.cache_resource
+def load_llm():
+
+    pipe = pipeline(
+        "text-generation",
+        model="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+        max_new_tokens=128
+    )
+
+    return HuggingFacePipeline(
+        pipeline=pipe
+    )
+
+llm = load_llm()
 
 llm = HuggingFacePipeline(
     pipeline=pipe
