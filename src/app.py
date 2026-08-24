@@ -25,6 +25,8 @@ FAISS_DIR = REPO_ROOT / "faiss_index"
 #st.write("index.faiss exists:", (FAISS_DIR / "index.faiss").exists())
 #st.write("index.pkl exists:", (FAISS_DIR / "index.pkl").exists())
 
+#loads the embedding model to convert text into numbers (Vectors)
+
 @st.cache_resource    #cache embedding
 def load_embeddings():
     return HuggingFaceEmbeddings(
