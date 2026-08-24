@@ -72,25 +72,3 @@ st.write("Step 5: Loading LLM")
 llm = load_llm()
 
 st.write("✅ Step 6: LLM Loaded")
-
-prompt = ChatPromptTemplate.from_template("""
-Answer the question using only the context below.
-
-Context:
-{context}
-
-Question:
-{question}
-
-Answer:
-""")
-
-rag_chain = (
-    {
-        "context": retriever,
-        "question": RunnablePassthrough()
-    }
-    | prompt
-    | llm
-    | StrOutputParser()
-)
