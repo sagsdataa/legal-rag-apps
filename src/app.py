@@ -1,20 +1,30 @@
 import streamlit as st
-import os
+
+from langchain_community.vectorstores import FAISS
+from langchain_huggingface import HuggingFaceEmbeddings
 
 st.title("Legal RAG Assistant")
 
-st.write("✅ Step 1: App Started")
+st.write("Step 1: Start")
 
-st.write("Current Directory:")
-st.write(os.getcwd())
+@st.cache_resource
+def load_embeddings():
+    return HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
 
-st.write("Files in Current Directory:")
-st.write(os.listdir("."))
+embeddings = load_embeddings()
 
-st.write("✅ App loaded successfully")
+st.write("✅ Step 2: Embeddings Loaded")
 
-question = st.text_input("Ask a question")
+@st.cache_resource
+def load_vector_db():
+    return FAISS.load_local(
+        "../faiss_index",
+        embeddings,
+        allow_dangerous_deserialization=True
+    )
 
-if question:
-    st.write(f"You asked: {question}")
+vectorDB = load_vector_db()
 
+st.write("✅ Step 3: FAISS Loaded")
