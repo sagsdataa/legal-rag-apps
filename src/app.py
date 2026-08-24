@@ -53,7 +53,7 @@ def load_llm():
 
     pipe = pipeline(
         "text-generation",
-        model="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+        model="microsoft/Phi-3-mini-4k-instruct",
         max_new_tokens=128
     )
 
