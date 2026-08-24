@@ -9,8 +9,6 @@ from langchain_core.output_parsers import StrOutputParser
 from transformers import pipeline
 from langchain_huggingface import HuggingFacePipeline
 
-st.title("Legal RAG Assistant")
-
 # Repository structure:
 # legal-rag-apps/
 # ├── faiss_index/
@@ -22,13 +20,12 @@ st.title("Legal RAG Assistant")
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FAISS_DIR = REPO_ROOT / "faiss_index"
 
-st.write("FAISS location:", str(FAISS_DIR))
-st.write("FAISS folder exists:", FAISS_DIR.exists())
-st.write("index.faiss exists:", (FAISS_DIR / "index.faiss").exists())
-st.write("index.pkl exists:", (FAISS_DIR / "index.pkl").exists())
+#st.write("FAISS location:", str(FAISS_DIR))
+#st.write("FAISS folder exists:", FAISS_DIR.exists())
+#st.write("index.faiss exists:", (FAISS_DIR / "index.faiss").exists())
+#st.write("index.pkl exists:", (FAISS_DIR / "index.pkl").exists())
 
-
-@st.cache_resource
+@st.cache_resource    #cache embedding
 def load_embeddings():
     return HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
