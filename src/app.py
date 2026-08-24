@@ -33,12 +33,7 @@ def load_embeddings():
     return HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
-
-
-st.write("Step 1: Loading embeddings")
 embeddings = load_embeddings()
-st.success("Step 2: Embeddings loaded")
-
 
 @st.cache_resource
 def load_vector_db():
@@ -47,13 +42,7 @@ def load_vector_db():
         embeddings=embeddings,
         allow_dangerous_deserialization=True
     )
-
-
-st.write("Step 3: Loading FAISS vector database")
 vectorDB = load_vector_db()
-
-st.success("Step 4: FAISS vector database loaded successfully")
-st.write("Vectors stored:", vectorDB.index.ntotal)
 
 # Define retriever
 retriever = vectorDB.as_retriever(
@@ -72,13 +61,8 @@ def load_llm():
     return HuggingFacePipeline(
         pipeline=pipe
     )
-
-st.write("Step 5: Loading LLM")
-
 llm = load_llm()
 
-st.write("✅ Step 6: LLM Loaded")
-st.write("Step 7: Creating Prompt")
 prompt = ChatPromptTemplate.from_template("""
 Answer the question using only the context below.
 
