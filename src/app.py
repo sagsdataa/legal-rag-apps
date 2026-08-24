@@ -15,7 +15,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 # Embedding model
 embeddings = HuggingFaceEmbeddings(
-    model_name="microsoft/Phi-3-mini-4k-instruct"
+    model_name="TinyLlama/TinyLlama-1.1B-Chat-v1.0"
 )
 
 # Load vector DB
