@@ -55,7 +55,9 @@ def load_llm():
     )
 
 st.write("Step 4: Loading LLM")
-llm = load_llm()
+st.write("Skipping LLM load for testing")
+#llm = load_llm()
+llm = None
 
 st.write("Step 5: Creating Pipeline")
 
