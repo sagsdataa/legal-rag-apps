@@ -6,6 +6,8 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+from transformers import pipeline
+from langchain_huggingface import HuggingFacePipeline
 
 st.title("Legal RAG Assistant")
 
@@ -53,8 +55,10 @@ vectorDB = load_vector_db()
 st.success("Step 4: FAISS vector database loaded successfully")
 st.write("Vectors stored:", vectorDB.index.ntotal)
 
-from transformers import pipeline
-from langchain_huggingface import HuggingFacePipeline
+# Define retriever
+retriever = vectorDB.as_retriever(
+    search_kwargs={"k": 3}
+)
 
 @st.cache_resource
 def load_llm():
