@@ -13,17 +13,15 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 
 st.write("Step 1: Starting app")
-st.write("Step 2: Loading embeddings")
+
 # Embedding model
 @st.cache_resource
 def load_embeddings():
     return HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
-
+st.write("Step 2: Loading embeddings")
 embeddings = load_embeddings()
-
-st.write("Step 3: Load Vector DB")
 
 # Load vector DB
 @st.cache_resource
@@ -33,7 +31,7 @@ def load_vector_db():
         embeddings,
         allow_dangerous_deserialization=True
     )
-
+st.write("Step 3: Load Vector DB")
 vectorDB = load_vector_db()
 
 # Retriever
@@ -41,7 +39,7 @@ retriever = vectorDB.as_retriever(
     search_kwargs={"k": 3}
 )
 
-st.write("Step 4: Loading LLM")
+
 # LLM
 @st.cache_resource
 def load_llm():
@@ -51,7 +49,7 @@ def load_llm():
         model="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
         max_new_tokens=128
     )
-
+st.write("Step 4: Loading LLM")
 llm = load_llm()
 
 st.write("Step 5: Creating Pipeline")
