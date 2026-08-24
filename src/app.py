@@ -46,6 +46,8 @@ retriever = vectorDB.as_retriever(
     search_kwargs={"k": 3}
 )
 
+# Load Model 
+# And convert a Hugging Face model pipeline into a LangChain LLM object.
 @st.cache_resource
 def load_llm():
 
@@ -60,6 +62,7 @@ def load_llm():
     )
 llm = load_llm()
 
+#Define Prompt
 prompt = ChatPromptTemplate.from_template("""
 Answer the question using only the context below.
 
@@ -72,6 +75,7 @@ Question:
 Answer:
 """)
 
+#Create a RAG chain
 rag_chain = (
     {
         "context": retriever,
@@ -82,8 +86,9 @@ rag_chain = (
     | StrOutputParser()
 )
 
-st.title("Legal RAG Assistant")
+st.title("Legal RAG Assistant")    # Streamlit apps building
 
+#Function for question answering using the RAG chain
 question = st.text_input("Ask a question")
 
 if question:
