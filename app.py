@@ -15,7 +15,7 @@ from langchain_core.output_parsers import StrOutputParser
 
 # Embedding model
 embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
+    model_name="microsoft/Phi-3-mini-4k-instruct"
 )
 
 # Load vector DB
