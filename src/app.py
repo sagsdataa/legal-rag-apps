@@ -50,3 +50,25 @@ vectorDB = load_vector_db()
 
 st.success("Step 4: FAISS vector database loaded successfully")
 st.write("Vectors stored:", vectorDB.index.ntotal)
+
+from transformers import pipeline
+from langchain_huggingface import HuggingFacePipeline
+
+@st.cache_resource
+def load_llm():
+
+    pipe = pipeline(
+        "text-generation",
+        model="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+        max_new_tokens=128
+    )
+
+    return HuggingFacePipeline(
+        pipeline=pipe
+    )
+
+st.write("Step 5: Loading LLM")
+
+llm = load_llm()
+
+st.write("✅ Step 6: LLM Loaded")
