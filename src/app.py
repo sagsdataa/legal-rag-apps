@@ -3,7 +3,9 @@ from pathlib import Path
 
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
-
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
 
 st.title("Legal RAG Assistant")
 
@@ -72,7 +74,7 @@ st.write("Step 5: Loading LLM")
 llm = load_llm()
 
 st.write("✅ Step 6: LLM Loaded")
-
+st.write("Step 7: Creating Prompt")
 prompt = ChatPromptTemplate.from_template("""
 Answer the question using only the context below.
 
@@ -94,3 +96,14 @@ rag_chain = (
     | llm
     | StrOutputParser()
 )
+
+st.title("Legal RAG Assistant")
+
+question = st.text_input("Ask a question")
+
+if question:
+    with st.spinner("Generating answer..."):
+        answer = rag_chain.invoke(question)
+
+    st.write(answer)
+    
