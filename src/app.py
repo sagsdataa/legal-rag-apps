@@ -49,6 +49,11 @@ def load_llm():
         model="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
         max_new_tokens=128
     )
+
+    return HuggingFacePipeline(
+        pipeline=pipe
+    )
+
 st.write("Step 4: Loading LLM")
 llm = load_llm()
 
