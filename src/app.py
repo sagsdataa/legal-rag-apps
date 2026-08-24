@@ -18,10 +18,14 @@ embeddings = load_embeddings()
 st.write("✅ Step 2: Embeddings Loaded")
 
 import os
-st.write("FAISS folder exists:",
-os.path.exists("faiss_index"))
-st.write("FAISS files:",
-os.listdir("faiss_index"))
+st.write(
+"FAISS File Size:",
+os.path.getsize("faiss_index/index.faiss")
+)
+st.write(
+"PKL File Size:",
+os.path.getsize("faiss_index/index.pkl")
+)
 
 @st.cache_resource
 def load_vector_db():
