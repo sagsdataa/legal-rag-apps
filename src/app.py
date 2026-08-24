@@ -59,9 +59,9 @@ llm = load_llm()
 
 st.write("Step 5: Creating Pipeline")
 
-llm = HuggingFacePipeline(
-    pipeline=pipe
-)
+#llm = HuggingFacePipeline(
+#    pipeline=pipe
+#)
 
 st.write("Step 6: App Loaded Successfully")
 
