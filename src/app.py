@@ -29,7 +29,7 @@ st.write("Step 3: Load Vector DB")
 @st.cache_resource
 def load_vector_db():
     return FAISS.load_local(
-        "faiss_index",
+        "../faiss_index",
         embeddings,
         allow_dangerous_deserialization=True
     )
@@ -50,10 +50,6 @@ def load_llm():
         "text-generation",
         model="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
         max_new_tokens=128
-    )
-
-    return HuggingFacePipeline(
-        pipeline=pipe
     )
 
 llm = load_llm()
